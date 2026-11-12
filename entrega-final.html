@@ -330,6 +330,7 @@
 .campo .ayuda-desplegable summary .orient-arrow{font-size:18px;line-height:1;margin-left:3px;transition:transform .2s}
 .campo .ayuda-desplegable[open] summary .orient-arrow{transform:rotate(180deg)}
 @media(max-width:700px){.campo .ayuda-desplegable .contenido-ayuda{position:static;left:auto;top:auto;width:100%;max-height:none;overflow:visible;padding:14px}}
+.image-preview{display:block;max-width:100%;max-height:230px;object-fit:contain;border-radius:10px;border:1px solid #cddfe6;background:#f7fafb;margin-top:9px}.image-preview[hidden]{display:none!important}.file-help{font-size:12px;color:#687f8c;margin:7px 0}.campo input[type="file"]{background:#f8fcfd;border:1px dashed #8fbaca;border-radius:10px;cursor:pointer} 
 </style>
 <style>
 
@@ -607,14 +608,14 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <p class="resource-explainer">Si lo desean, pueden sumar imágenes o enlaces que complementen su trabajo. No es necesario incorporar ninguno.</p>
 <div class="resource-actions"><button aria-controls="imageSlots" class="resource-add" id="addImage" type="button">＋ Agregar imagen</button><button aria-controls="linkSlots" class="resource-add" id="addLink" type="button">＋ Agregar enlace</button></div>
 <div class="resource-slots" id="imageSlots">
-<div class="resource-slot" data-kind="image" hidden=""><div class="resource-slot-header"><strong>Imagen 1</strong><button aria-label="Quitar imagen 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="imagen1">Dirección web de la imagen (URL)</label><input disabled="" id="imagen1" name="imagen1" placeholder="https://.../imagen.jpg" type="url"/></div><div class="campo"><label for="epigrafe1">Epígrafe o descripción</label><input disabled="" id="epigrafe1" maxlength="300" name="epigrafe1" type="text"/></div></div>
-<div class="resource-slot" data-kind="image" hidden=""><div class="resource-slot-header"><strong>Imagen 2</strong><button aria-label="Quitar imagen 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="imagen2">Dirección web de la imagen (URL)</label><input disabled="" id="imagen2" name="imagen2" placeholder="https://.../imagen.png" type="url"/></div><div class="campo"><label for="epigrafe2">Epígrafe o descripción</label><input disabled="" id="epigrafe2" maxlength="300" name="epigrafe2" type="text"/></div></div>
+<div class="resource-slot" data-kind="image" hidden=""><div class="resource-slot-header"><strong>Imagen 1</strong><button aria-label="Quitar imagen 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="archivoImagen1">Seleccionar imagen desde tu dispositivo</label><input accept="image/jpeg,image/png,image/webp" disabled="" id="archivoImagen1" type="file"/><input type="hidden" name="imagen1_base64" id="imagen1_base64" disabled=""/><input type="hidden" name="imagen1_tipo" id="imagen1_tipo" disabled=""/><input type="hidden" name="imagen1_nombre" id="imagen1_nombre" disabled=""/><p class="file-help">JPG, PNG o WebP · máximo 1 MB por imagen.</p><img class="image-preview" id="vistaImagen1" alt="Vista previa de la imagen 1" hidden=""/></div><div class="campo"><label for="epigrafe1">Epígrafe o descripción</label><input disabled="" id="epigrafe1" maxlength="300" name="epigrafe1" type="text"/></div></div>
+<div class="resource-slot" data-kind="image" hidden=""><div class="resource-slot-header"><strong>Imagen 2</strong><button aria-label="Quitar imagen 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="archivoImagen2">Seleccionar imagen desde tu dispositivo</label><input accept="image/jpeg,image/png,image/webp" disabled="" id="archivoImagen2" type="file"/><input type="hidden" name="imagen2_base64" id="imagen2_base64" disabled=""/><input type="hidden" name="imagen2_tipo" id="imagen2_tipo" disabled=""/><input type="hidden" name="imagen2_nombre" id="imagen2_nombre" disabled=""/><p class="file-help">JPG, PNG o WebP · máximo 1 MB por imagen.</p><img class="image-preview" id="vistaImagen2" alt="Vista previa de la imagen 2" hidden=""/></div><div class="campo"><label for="epigrafe2">Epígrafe o descripción</label><input disabled="" id="epigrafe2" maxlength="300" name="epigrafe2" type="text"/></div></div>
 </div>
 <div class="resource-slots" id="linkSlots">
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 1</strong><button aria-label="Quitar enlace 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace1">Dirección web (URL)</label><input disabled="" id="enlace1" name="enlace1" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace1_titulo">Texto del enlace</label><input disabled="" id="enlace1_titulo" maxlength="160" name="enlace1_titulo" placeholder="Sitio, documento o recurso" type="text"/></div></div>
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 2</strong><button aria-label="Quitar enlace 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace2">Dirección web (URL)</label><input disabled="" id="enlace2" name="enlace2" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace2_titulo">Texto del enlace</label><input disabled="" id="enlace2_titulo" maxlength="160" name="enlace2_titulo" type="text"/></div></div>
 </div>
-<p class="resource-hint">Las imágenes deben contar con una URL pública directa (JPG, PNG o WebP). Incluyan autoría o fuente cuando corresponda y eviten publicar datos personales sin autorización. Máximo: 2 imágenes y 2 enlaces.</p></div><div class="acciones">
+<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="acciones">
 <button class="primario" id="btnEnviar" type="submit">Enviar trabajo final</button>
 <button class="secundario" id="btnLimpiar" type="button">Limpiar</button>
 </div>
@@ -634,13 +635,52 @@ if (!configured) {send.disabled=true;send.style.opacity='.5';}
 else {form.action=WEB_APP_URL;}
 document.getElementById('btnLimpiar').addEventListener('click',()=>{form.reset();status.style.display='none';});
 let pending=false;
-form.addEventListener('submit',(ev)=>{
- if (!configured){ev.preventDefault();return;}
- pending=true;send.disabled=true;status.style.display='block';status.textContent='Enviando… comprobá luego la incorporación en el libro digital.';
+const MAX_IMAGE_BYTES=1024*1024;
+const FILE_TYPES=['image/jpeg','image/png','image/webp'];
+for(const n of [1,2]){
+ const fileInput=document.getElementById('archivoImagen'+n);
+ const preview=document.getElementById('vistaImagen'+n);
+ fileInput.addEventListener('change',()=>{
+  preview.hidden=true;preview.removeAttribute('src');
+  const file=fileInput.files?.[0];
+  if(!file)return;
+  if(!FILE_TYPES.includes(file.type)||file.size>MAX_IMAGE_BYTES){
+   alert('Seleccioná una imagen JPG, PNG o WebP de hasta 1 MB.');fileInput.value='';return;
+  }
+  const reader=new FileReader();
+  reader.onload=()=>{preview.src=String(reader.result);preview.hidden=false};
+  reader.readAsDataURL(file);
+ });
+}
+function readImage(file){return new Promise((resolve,reject)=>{
+ const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('No se pudo leer '+file.name));reader.readAsDataURL(file);
+})}
+form.addEventListener('submit',async(ev)=>{
+ ev.preventDefault();
+ if(!configured||pending)return;
+ for(const n of [1,2])for(const suffix of ['base64','tipo','nombre'])document.getElementById('imagen'+n+'_'+suffix).value='';
+ pending=true;send.disabled=true;status.style.display='block';status.textContent='Preparando la entrega y las imágenes…';
+ try{
+  for(const n of [1,2]){
+   const input=document.getElementById('archivoImagen'+n);
+   if(input.disabled||input.closest('.resource-slot').hidden||!input.files?.length)continue;
+   const file=input.files[0];
+   if(!FILE_TYPES.includes(file.type)||file.size>MAX_IMAGE_BYTES)throw new Error('La imagen '+n+' debe ser JPG, PNG o WebP y pesar como máximo 1 MB.');
+   const data=await readImage(file);
+   const raw=data.split(',')[1];
+   if(!raw)throw new Error('No se pudo preparar la imagen '+n);
+   document.getElementById('imagen'+n+'_base64').value=raw;
+   document.getElementById('imagen'+n+'_tipo').value=file.type;
+   document.getElementById('imagen'+n+'_nombre').value=file.name;
+  }
+  status.textContent='Enviando el trabajo y los recursos. No cierres esta página hasta que termine.';
+  HTMLFormElement.prototype.submit.call(form);
+ }catch(error){pending=false;send.disabled=false;status.textContent=error.message;}
 });
 document.getElementById('envioOculto').addEventListener('load',()=>{
  if (!pending)return;
- pending=false;send.disabled=false;status.innerHTML='El formulario se remitió al servicio de registro. Verificá que aparezca en <a href="libro.html">el libro digital</a>. Si no aparece, contactá al equipo docente antes de volver a enviarlo.';
+ pending=false;send.disabled=false;
+ status.innerHTML='La solicitud terminó de enviarse. <strong>Comprobá que el trabajo y las imágenes aparezcan en <a href="libro.html" target="_blank" rel="noopener noreferrer">el libro digital</a>.</strong> Si no aparecen, avisá al equipo docente antes de reenviar.';
 });
 // Mostrar los recursos únicamente si se elige agregarlos.
 function updateResourceButtons(){
@@ -663,12 +703,12 @@ for(const [id,kind] of [['addImage','image'],['addLink','link']]){
 }
 document.querySelectorAll('.remove-resource').forEach(btn=>btn.addEventListener('click',()=>{
  const slot=btn.closest('.resource-slot');
- slot.querySelectorAll('input').forEach(i=>{i.value='';i.disabled=true});
+ slot.querySelectorAll('input').forEach(i=>{i.value='';i.disabled=true});const preview=slot.querySelector('.image-preview');if(preview){preview.hidden=true;preview.removeAttribute('src')}
  slot.hidden=true;
  updateResourceButtons();
 }));
 document.getElementById('btnLimpiar').addEventListener('click',()=>{
- document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true)});
+ document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const preview=slot.querySelector('.image-preview');if(preview){preview.hidden=true;preview.removeAttribute('src')}});
  updateResourceButtons();
 });
 updateResourceButtons();
