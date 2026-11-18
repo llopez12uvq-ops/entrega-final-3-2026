@@ -331,6 +331,7 @@
 .campo .ayuda-desplegable[open] summary .orient-arrow{transform:rotate(180deg)}
 @media(max-width:700px){.campo .ayuda-desplegable .contenido-ayuda{position:static;left:auto;top:auto;width:100%;max-height:none;overflow:visible;padding:14px}}
 .image-preview{display:block;max-width:100%;max-height:230px;object-fit:contain;border-radius:10px;border:1px solid #cddfe6;background:#f7fafb;margin-top:9px}.image-preview[hidden]{display:none!important}.file-help{font-size:12px;color:#687f8c;margin:7px 0}.campo input[type="file"]{background:#f8fcfd;border:1px dashed #8fbaca;border-radius:10px;cursor:pointer} 
+.mis-capitulos{margin:15px 0;padding:18px;border:1px solid #bfdde6;background:#f2f9fb;border-radius:14px}.mis-capitulos h3{margin:0 0 6px;color:#06465d}.mis-capitulos p{margin:0 0 12px;font-size:13px;line-height:1.5}.mi-capitulo-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #cce1e8;flex-wrap:wrap}.mi-capitulo-row span{font-weight:700;overflow-wrap:anywhere}.mi-capitulo-row a{font-weight:800;color:#007da7}
 </style>
 <style>
 
@@ -633,7 +634,11 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 1</strong><button aria-label="Quitar enlace 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace1">Dirección web (URL)</label><input disabled="" id="enlace1" name="enlace1" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace1_titulo">Texto del enlace</label><input disabled="" id="enlace1_titulo" maxlength="160" name="enlace1_titulo" placeholder="Sitio, documento o recurso" type="text"/></div></div>
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 2</strong><button aria-label="Quitar enlace 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace2">Dirección web (URL)</label><input disabled="" id="enlace2" name="enlace2" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace2_titulo">Texto del enlace</label><input disabled="" id="enlace2_titulo" maxlength="160" name="enlace2_titulo" type="text"/></div></div>
 </div>
-<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="draft-tools" aria-label="Guardar el capítulo">
+<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><section id="misCapitulos" class="mis-capitulos" aria-label="Mis capítulos en este navegador">
+<h3>Mis capítulos</h3>
+<p>Encontrá aquí los capítulos que abriste o guardaste <strong>en este navegador</strong>. Para trabajar desde otro dispositivo, usá el enlace privado que comparte el equipo.</p>
+<div id="listaMisCapitulos"><p>Todavía no hay capítulos guardados en este navegador.</p></div>
+</section><div class="draft-tools" aria-label="Guardar el capítulo">
 <p><strong>Un capítulo por equipo.</strong> Completá el título, los integrantes y la organización. Después podés guardar aunque haya apartados pendientes. El capítulo aparecerá en el libro colectivo.</p>
 <div id="teamLinkBox" style="display:none;background:#eaf7f4;border:1px solid #b8dfd4;padding:16px;border-radius:12px;margin:12px 0">
 <strong>Enlace de edición del equipo</strong><p>Compartilo solamente con tus compañeros. Quien tenga este enlace podrá editar el capítulo.</p>
@@ -694,13 +699,53 @@ function readImage(file){return new Promise((resolve,reject)=>{const reader=new 
 function updateResourceButtons(){for(const [id,kind] of [['addImage','image'],['addLink','link']]){const slots=[...document.querySelectorAll('.resource-slot[data-kind="'+kind+'"]')],count=slots.filter(s=>!s.hidden).length,b=document.getElementById(id);b.disabled=count===slots.length;b.textContent=count===slots.length?'Máximo de '+(kind==='image'?'imágenes':'enlaces')+' agregado':'＋ Agregar '+(kind==='image'?'imagen':'enlace')}}
 for(const [id,kind] of [['addImage','image'],['addLink','link']])document.getElementById(id).addEventListener('click',()=>{const slot=[...document.querySelectorAll('.resource-slot[data-kind="'+kind+'"]')].find(s=>s.hidden);if(!slot)return;slot.hidden=false;slot.querySelectorAll('input').forEach(i=>i.disabled=false);updateResourceButtons();slot.querySelector('input')?.focus()});
 document.querySelectorAll('.remove-resource').forEach(btn=>btn.addEventListener('click',()=>{const slot=btn.closest('.resource-slot');slot.querySelectorAll('input').forEach(i=>{i.value='';i.disabled=true});const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}slot.hidden=true;updateResourceButtons()}));
-let pending=false,currentNonce='',version=0,token='';
+let pending=false,currentNonce='',version=0,token='',pendingSnapshot=null;
 const iframe=document.getElementById('envioOculto');
 function setPending(flag){pending=flag;send.disabled=flag}
 function generateToken(){
  if(!crypto?.getRandomValues)throw Error('Abrí la página con HTTPS para generar un enlace seguro.');
  const a=new Uint8Array(32);crypto.getRandomValues(a);
  return [...a].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+// Solo recordamos enlaces de edición en el navegador local; nunca se publican en el libro.
+const STORAGE_KEY='tfi2026-capitulos-v2';
+function readSaved(){try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(v)?v.filter(x=>/^[a-f0-9]{64}$/.test(x.token)):[]}catch(_){return []}}
+function rememberChapter(titulo,stamp){
+ if(!/^[a-f0-9]{64}$/.test(token))return;
+ try{const rest=readSaved().filter(x=>x.token!==token);rest.unshift({token,titulo:String(titulo||'Capítulo sin título').slice(0,140),stamp:stamp||new Date().toISOString()});localStorage.setItem(STORAGE_KEY,JSON.stringify(rest.slice(0,50)))}catch(_){}
+ renderSaved();
+}
+function renderSaved(){
+ const box=document.getElementById('listaMisCapitulos');if(!box)return;
+ box.replaceChildren();const items=readSaved();
+ if(!items.length){const p=document.createElement('p');p.textContent='Todavía no hay capítulos guardados en este navegador.';box.appendChild(p);return}
+ for(const item of items){
+  const row=document.createElement('div');row.className='mi-capitulo-row';
+  const name=document.createElement('span');name.textContent=item.titulo;
+  const link=document.createElement('a');link.textContent='Continuar editando';const u=new URL('entrega-final.html',location.href);u.searchParams.set('equipo',item.token);link.href=u.href;
+  row.append(name,link);box.appendChild(row);
+ }
+}
+renderSaved();
+function jsonpChapter(tk,timeout=12000){return new Promise((resolve,reject)=>{
+ const cb='recibirTFI_'+Math.random().toString(36).slice(2);const el=document.createElement('script');let finished=false;
+ const cleanup=()=>{delete window[cb];el.remove();clearTimeout(timer)};
+ const finish=(err,data)=>{if(finished)return;finished=true;cleanup();err?reject(err):resolve(data)};
+ const timer=setTimeout(()=>finish(new Error('El servidor no respondió a la consulta')),timeout);
+ window[cb]=data=>finish(null,data);
+ el.onerror=()=>finish(new Error('No se pudo consultar el capítulo'));
+ el.src=WEB_APP_URL+'?tipo=equipo&token='+encodeURIComponent(tk)+'&callback='+cb+'&v='+Date.now();document.body.appendChild(el)
+})}
+function confirmedSave(d){
+ version=Number(d.version)||version+1;showLink();rememberChapter(d.titulo||document.getElementById('titulo').value);
+ history.replaceState(null,'',editorLink());setPending(false);
+ notify(draftStatus,'Guardado verificado · versión '+version+'. Copiá el enlace de edición para compartirlo con el equipo.');
+}
+async function verifySave(tk,before,nonce){
+ try{const data=await jsonpChapter(tk);if(nonce!==currentNonce)return;
+  if(data?.capitulo&&Number(data.capitulo.version)>before&&pendingSnapshot&&Object.entries(pendingSnapshot).every(([k,v])=>String(data.capitulo[k]||'')===v)){confirmedSave(data.capitulo);return}
+  setPending(false);notify(draftStatus,'No se confirmó el guardado. Tus cambios siguen en el formulario. Comprobá la conexión y volvé a intentar cuando sea necesario.',true)
+ }catch(_){if(nonce!==currentNonce)return;setPending(false);notify(draftStatus,'No pudimos comprobar el guardado. No cierres el formulario ni vuelvas a enviar de inmediato; revisá el capítulo en el libro.',true)}
 }
 const params=new URLSearchParams(location.search);
 const incomingToken=params.get('equipo')||'';
@@ -727,20 +772,16 @@ function showChapter(d){
  for(const k of FIELDS)document.querySelector('[data-for="'+k+'"]').innerHTML=cleanRich(d[k]||'');
  version=Number(d.version)||0;updateResourceButtons();syncEditors();
 }
-function loadChapter(){
+async function loadChapter(){
  if(!incomingToken)return;
  if(!/^[a-f0-9]{64}$/.test(incomingToken)){notify(draftStatus,'El enlace de edición no es válido.',true);send.disabled=true;return}
- token=incomingToken;send.disabled=true;
- notify(draftStatus,'Recuperando el capítulo del equipo…');
- const cb='recibirCapituloTFI';
- window[cb]=data=>{
-  if(!data?.capitulo){notify(draftStatus,'No hay un capítulo guardado para este enlace. No crees uno nuevo: consultá al equipo docente.',true);return}
-  showChapter(data.capitulo);showLink();send.disabled=false;
+ token=incomingToken;send.disabled=true;notify(draftStatus,'Recuperando el capítulo del equipo…');
+ try{
+  const data=await jsonpChapter(token);
+  if(!data?.capitulo){notify(draftStatus,'No hay un capítulo guardado para este enlace. Consultá al equipo docente.',true);return}
+  showChapter(data.capitulo);showLink();rememberChapter(data.capitulo.titulo);send.disabled=false;
   notify(draftStatus,'Capítulo recuperado (versión '+version+'). Podés seguir editando.');
- };
- const s=document.createElement('script');s.src=WEB_APP_URL+'?tipo=equipo&token='+encodeURIComponent(token)+'&callback='+cb+'&v='+Date.now();
- s.onerror=()=>notify(draftStatus,'No se pudo recuperar el capítulo. Verificá la conexión.',true);
- document.body.appendChild(s);
+ }catch(err){notify(draftStatus,'No se pudo recuperar el capítulo. '+err.message,true)}
 }
 document.getElementById('btnCopiarEnlace').addEventListener('click',async()=>{
  try{await navigator.clipboard.writeText(teamLink.value);notify(draftStatus,'Enlace copiado. Compartilo con los integrantes de tu equipo.')}catch(_){teamLink.focus();teamLink.select();notify(draftStatus,'Seleccioné el enlace; copialo manualmente.')}});
@@ -752,6 +793,7 @@ form.addEventListener('submit',async(ev)=>{
  }
  if(!token)token=generateToken();
  for(const n of [1,2])for(const suf of ['base64','tipo','nombre'])document.getElementById('imagen'+n+'_'+suf).value='';
+ pendingSnapshot=Object.fromEntries(['titulo','autor','organizacion',...FIELDS].map(k=>[k,String(document.getElementById(k).value||'')]));
  setPending(true);prepareRequest();notify(draftStatus,'Guardando en el libro digital…');
  try{
   for(const n of [1,2]){
@@ -763,16 +805,15 @@ form.addEventListener('submit',async(ev)=>{
    document.getElementById('imagen'+n+'_tipo').value=file.type;
   }
   HTMLFormElement.prototype.submit.call(form);
-  const sentNonce=currentNonce;
-  setTimeout(()=>{if(pending&&currentNonce===sentNonce){setPending(false);notify(draftStatus,'No llegó confirmación del servidor. Antes de reintentar, abrí el libro y comprobá si se guardó.',true)}},25000);
+  const sentNonce=currentNonce, before=version, sentToken=token;
+  setTimeout(()=>{if(pending&&currentNonce===sentNonce){notify(draftStatus,'Comprobando si el servidor guardó el capítulo…');verifySave(sentToken,before,sentNonce)}},12000);
  }catch(err){setPending(false);notify(draftStatus,err.message,true)}
 });
 window.addEventListener('message',ev=>{
- if(ev.source!==iframe.contentWindow)return;
+ if(ev.source!==iframe.contentWindow||!pending)return;
  const data=ev.data;if(!data||data.channel!=='unq-tfi-2026'||data.nonce!==currentNonce)return;
  setPending(false);
- if(data.ok){version+=1;showLink();history.replaceState(null,'',editorLink());
-  notify(draftStatus,'Guardado confirmado · versión '+version+'. El capítulo ya aparece en el libro. Copiá el enlace para compartirlo con tu equipo.');
+ if(data.ok){confirmedSave({version:version+1,titulo:document.getElementById('titulo').value});
  }else notify(draftStatus,'No se guardó: '+(data.message||'error desconocido'),true);
 });
 // No se muestra una confirmación de guardado hasta recibir respuesta del servidor.
