@@ -400,6 +400,30 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 .draft-tools p{width:100%;margin:0;color:#536f7c;font-size:13px;line-height:1.5}
 #draftStatus{font-size:13px;font-weight:700;color:#216b66}
 @media(max-width:520px){.rich-editor{min-height:170px}.draft-tools{padding:13px}.draft-tools button{flex:1}}
+
+/* Flujo simplificado: una acción principal de borrador y recuperación discreta */
+.draft-tools-simple{display:block;margin:22px 0 16px;padding:19px 21px;background:#f0f8f7;border:1px solid #cfe5e0;border-radius:15px}
+.draft-primary{display:flex;align-items:center;justify-content:space-between;gap:22px}
+.draft-copy{display:flex;flex-direction:column;gap:6px}
+.draft-copy strong{font-size:16px;color:#153d4c}
+.draft-copy span{font-size:13px;line-height:1.55;color:#526e77}
+.draft-tools-simple .draft-save{flex:none;background:#14876a;border:1px solid #14876a;color:white;border-radius:10px;padding:13px 22px;font-size:14px;font-weight:800;cursor:pointer}
+.draft-tools-simple .draft-save:hover{background:#0b6e56}
+.draft-tools-simple #draftStatus{display:block;min-height:0;margin-top:9px;font-size:13px;font-weight:700}
+.draft-tools-simple #draftStatus:empty{display:none}
+.draft-advanced{margin-top:14px;padding-top:12px;border-top:1px solid #d7e7e7}
+.draft-advanced summary{display:inline-block;cursor:pointer;color:#397182;font-weight:650;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.draft-advanced-body{padding-top:14px}
+.draft-advanced-body p{margin:0 0 13px;font-size:13px;color:#526e77;line-height:1.55}
+.draft-advanced-body label{display:block;font-size:13px;font-weight:700;color:#264d5b;margin-bottom:7px}
+.draft-advanced-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.draft-tools-simple .draft-code{flex:1 1 250px;min-width:0;border:1px solid #c1d9de;border-radius:9px;padding:12px 13px;font-size:13px}
+.draft-advanced-controls button{border-radius:9px;padding:11px 13px;font-size:13px}
+.draft-advanced-body .draft-small{margin:12px 0 0;color:#6c818b;font-size:12px}
+.send-actions{align-items:center;margin-top:17px}
+.send-actions .primario{padding:15px 22px}
+.send-actions #btnLimpiar{margin-left:auto;background:transparent;color:#6c818b;font-size:12px;font-weight:600}
+@media(max-width:650px){.draft-primary{align-items:stretch;flex-direction:column;gap:15px}.draft-tools-simple .draft-save{width:100%}.send-actions .primario{flex:1}}
 </style></head>
 <body>
 <section class="hero">
@@ -633,17 +657,32 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 1</strong><button aria-label="Quitar enlace 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace1">Dirección web (URL)</label><input disabled="" id="enlace1" name="enlace1" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace1_titulo">Texto del enlace</label><input disabled="" id="enlace1_titulo" maxlength="160" name="enlace1_titulo" placeholder="Sitio, documento o recurso" type="text"/></div></div>
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 2</strong><button aria-label="Quitar enlace 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace2">Dirección web (URL)</label><input disabled="" id="enlace2" name="enlace2" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace2_titulo">Texto del enlace</label><input disabled="" id="enlace2_titulo" maxlength="160" name="enlace2_titulo" type="text"/></div></div>
 </div>
-<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="draft-tools" aria-label="Guardar y recuperar borradores">
-<button class="secundario" type="button" id="btnGuardarBorrador">Guardar borrador</button>
-<input class="draft-code" id="codigoBorrador" type="text" autocomplete="off" placeholder="Código privado para recuperar el borrador" aria-label="Código privado del borrador" />
-<button class="secundario" type="button" id="btnRecuperar">Recuperar borrador</button>
-<button class="secundario" type="button" id="btnCopiarCodigo">Copiar código</button>
-<p>Podés escribir por etapas y guardar en Google Sheets. Conservá el código privado: permite recuperar y editar tu borrador desde otro dispositivo. <strong>Guardar borrador no publica el trabajo.</strong> Las imágenes deben volver a seleccionarse al enviar la entrega final.</p>
-<span id="draftStatus" role="status" aria-live="polite"></span>
+<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="draft-tools draft-tools-simple" aria-label="Guardar el avance del trabajo">
+  <div class="draft-primary">
+    <div class="draft-copy">
+      <strong>¿Todavía estás preparando el trabajo?</strong>
+      <span>Guardá lo que escribiste y continuá en otro momento. No se publica en el libro.</span>
+    </div>
+    <button class="draft-save" type="button" id="btnGuardarBorrador">Guardar avance</button>
+  </div>
+  <span id="draftStatus" role="status" aria-live="polite"></span>
+  <details class="draft-advanced" id="draftAdvanced">
+    <summary>¿Querés continuar desde otro dispositivo?</summary>
+    <div class="draft-advanced-body">
+      <p>En este mismo navegador, tu avance se recupera automáticamente. Para usar otra computadora o celular, guardá tu clave privada y escribila allí. No la compartas con otras personas.</p>
+      <label for="codigoBorrador">Clave privada del borrador</label>
+      <div class="draft-advanced-controls">
+        <input class="draft-code" id="codigoBorrador" type="text" autocomplete="off" spellcheck="false" placeholder="Pegá tu clave para recuperar un avance" aria-label="Clave privada del borrador" />
+        <button class="secundario" type="button" id="btnRecuperar">Recuperar avance</button>
+        <button class="secundario" type="button" id="btnCopiarCodigo">Copiar mi clave</button>
+      </div>
+      <p class="draft-small">Las imágenes deberán volver a seleccionarse al realizar la entrega definitiva.</p>
+    </div>
+  </details>
 </div>
-<div class="acciones">
-<button class="primario" id="btnEnviar" type="submit">Enviar trabajo final</button>
-<button class="secundario" id="btnLimpiar" type="button">Limpiar</button>
+<div class="acciones send-actions">
+  <button class="primario" id="btnEnviar" type="submit">Enviar trabajo final</button>
+  <button class="secundario" id="btnLimpiar" type="button">Limpiar formulario</button>
 </div>
 </form>
 <div class="estado" id="estado"></div>
@@ -729,15 +768,21 @@ document.getElementById('btnGuardarBorrador').addEventListener('click',()=>{
  }catch(err){setPending(false);notify(draftStatus,err.message,true)}
 });
 document.getElementById('btnCopiarCodigo').addEventListener('click',async()=>{
- const k=document.getElementById('codigoBorrador').value.trim();if(!k)return notify(draftStatus,'Primero guardá un borrador.',true);
+ const k=document.getElementById('codigoBorrador').value.trim();if(!k)return notify(draftStatus,'Primero guardá tu avance.',true);
  try{await navigator.clipboard.writeText(k);notify(draftStatus,'Código copiado. Conservalo de manera privada.')}catch(_){document.getElementById('codigoBorrador').select();notify(draftStatus,'Código seleccionado: copialo y guardalo.')}});
 function loadDraft(){
  const k=document.getElementById('codigoBorrador').value.trim();if(!/^[a-f0-9]{64}$/.test(k))return notify(draftStatus,'Ingresá un código válido.',true);
  if(pending)return;notify(draftStatus,'Buscando borrador…');const cb='tfiDraftCallback';
- window[cb]=(data)=>{if(data?.error)return notify(draftStatus,'No se encontró ese borrador.',true);if(!data?.borrador)return notify(draftStatus,'No se encontró ese borrador.',true);showDraft(data.borrador);keepToken(k);notify(draftStatus,'Borrador recuperado. Podés continuar editándolo.')};
+ window[cb]=(data)=>{if(data?.error)return notify(draftStatus,'No se encontró ese borrador.',true);if(!data?.borrador)return notify(draftStatus,'No se encontró ese borrador.',true);showDraft(data.borrador);keepToken(k);notify(draftStatus,'Recuperamos tu avance. Podés continuar escribiendo.')};
  const s=document.createElement('script');s.src=WEB_APP_URL+'?tipo=borrador&token='+encodeURIComponent(k)+'&callback='+cb+'&v='+Date.now();s.onerror=()=>notify(draftStatus,'No se pudo recuperar el borrador. Revisá la conexión.',true);document.body.appendChild(s);
 }
 document.getElementById('btnRecuperar').addEventListener('click',loadDraft);
+// Al volver desde el mismo navegador, recuperar el último borrador sin pedir la clave.
+if(token && configured){
+ notify(draftStatus,'Recuperando tu último avance…');
+ loadDraft();
+}
+
 form.addEventListener('submit',async(ev)=>{
  ev.preventDefault();if(pending||!configured)return;syncEditors();
  const missing=FIELDS.filter(k=>!document.getElementById(k).value);if(missing.length)return notify(status,'Completá los apartados obligatorios antes de enviar.',true);
@@ -755,14 +800,14 @@ window.addEventListener('message',ev=>{
  if(ev.source!==iframe.contentWindow && !/^https:\/\/(?:script\.google\.com|(?:[a-z0-9-]+\.)?googleusercontent\.com)$/.test(ev.origin))return;const data=ev.data;if(!data||data.channel!=='unq-tfi-2026'||data.nonce!==currentNonce)return;
  setPending(false);
  if(data.ok){
-  if(operation==='borrador')notify(draftStatus,'Borrador guardado. Conservá tu código privado para editarlo más adelante.');
+  if(operation==='borrador')notify(draftStatus,'Avance guardado. Cuando vuelvas a esta página desde el mismo navegador, podrás continuar.');
   else{notify(status,'Entrega definitiva registrada. Podés verificarla en el libro digital.');try{localStorage.removeItem(STORAGE_KEY)}catch(_){}}
  }else{notify(operation==='borrador'?draftStatus:status,'No se registró: '+(data.message||'error desconocido'),true)}
 });
 iframe.addEventListener('load',()=>{if(!pending)return;setTimeout(()=>{if(pending){setPending(false);notify(operation==='borrador'?draftStatus:status,'No se pudo confirmar la operación automáticamente. Verificá el registro antes de reenviar.',true)}},1500)});
 document.getElementById('btnLimpiar').addEventListener('click',()=>{
  if(!confirm('¿Querés borrar el contenido de este formulario? Esto no elimina los borradores guardados en el servidor.'))return;
- form.reset();FIELDS.forEach(k=>document.querySelector('[data-for="'+k+'"]').innerHTML='');document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}});updateResourceButtons();status.style.display='none';notify(draftStatus,'Formulario limpiado. Los borradores guardados siguen disponibles mediante su código.');
+ form.reset();FIELDS.forEach(k=>document.querySelector('[data-for="'+k+'"]').innerHTML='');document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}});updateResourceButtons();status.style.display='none';notify(draftStatus,'Formulario limpiado. Si tenés un avance guardado, podés recuperarlo desde las opciones adicionales.');
 });
 updateResourceButtons();
 </script></body>
