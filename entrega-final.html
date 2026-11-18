@@ -435,7 +435,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 </section>
 <div class="topbar">
 <div class="topbar-inner">
-<strong>Libro digital · Carga de entregas finales</strong>
+<strong>Libro digital · Construcción colectiva</strong>
 <nav>
 <a class="nav-btn" href="index.html">Inicio</a>
 <a class="nav-btn" href="libro.html">Ver libro</a>
@@ -447,7 +447,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="panel-header"><h2>Trabajo final · Entrega 17/12/2026</h2></div>
 <div class="panel-body">
 
-<div class="nota">La entrega final es el 17 de diciembre. Podés guardar borradores antes de enviar el trabajo definitivo. Las imágenes y los enlaces son opcionales.</div>
+<div class="nota">Publicá avances durante la cursada para construir el libro digital de manera colectiva. Podés seguir editándolos hasta la entrega definitiva del 17 de diciembre. Los avances publicados son visibles en el libro.</div>
 <div class="consigna">
           El trabajo final consistirá en la elaboración de un <strong>Plan de Transformación Digital con Tecnologías Habilitadoras</strong>, aplicado a una organización real o hipotética. La propuesta deberá incorporar al menos una tecnología disruptiva —IA, IoT o Industria 4.0— para optimizar un área clave de la organización, como marketing, operaciones o finanzas. Se espera que el trabajo describa la organización y el área seleccionada, identifique una problemática o una oportunidad de mejora, presente una propuesta de intervención fundamentada en los contenidos de la materia y desarrolle su potencial de valor, así como los principales requerimientos de inversión y gestión para su implementación.
         </div>
@@ -657,22 +657,22 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 1</strong><button aria-label="Quitar enlace 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace1">Dirección web (URL)</label><input disabled="" id="enlace1" name="enlace1" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace1_titulo">Texto del enlace</label><input disabled="" id="enlace1_titulo" maxlength="160" name="enlace1_titulo" placeholder="Sitio, documento o recurso" type="text"/></div></div>
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 2</strong><button aria-label="Quitar enlace 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace2">Dirección web (URL)</label><input disabled="" id="enlace2" name="enlace2" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace2_titulo">Texto del enlace</label><input disabled="" id="enlace2_titulo" maxlength="160" name="enlace2_titulo" type="text"/></div></div>
 </div>
-<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="draft-tools draft-tools-simple" aria-label="Guardar el avance del trabajo">
+<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="draft-tools draft-tools-simple" aria-label="Publicar avances del trabajo">
   <div class="draft-primary">
     <div class="draft-copy">
-      <strong>¿Todavía estás preparando el trabajo?</strong>
-      <span>Guardá lo que escribiste y continuá en otro momento. No se publica en el libro.</span>
+      <strong>Construí el trabajo clase a clase</strong>
+      <span>Publicá tus avances en el libro digital. En cada clase podés volver, ampliar o corregir el mismo trabajo.</span>
     </div>
-    <button class="draft-save" type="button" id="btnGuardarBorrador">Guardar avance</button>
+    <button class="draft-save" type="button" id="btnGuardarBorrador">Publicar avance</button>
   </div>
   <span id="draftStatus" role="status" aria-live="polite"></span>
   <details class="draft-advanced" id="draftAdvanced">
-    <summary>¿Querés continuar desde otro dispositivo?</summary>
+    <summary>Opciones para continuar desde otro dispositivo</summary>
     <div class="draft-advanced-body">
-      <p>En este mismo navegador, tu avance se recupera automáticamente. Para usar otra computadora o celular, guardá tu clave privada y escribila allí. No la compartas con otras personas.</p>
-      <label for="codigoBorrador">Clave privada del borrador</label>
+      <p>En este navegador el trabajo se recupera automáticamente. Para editarlo desde otro dispositivo, conservá la clave privada del equipo. No la compartas fuera del grupo.</p>
+      <label for="codigoBorrador">Clave privada del trabajo</label>
       <div class="draft-advanced-controls">
-        <input class="draft-code" id="codigoBorrador" type="text" autocomplete="off" spellcheck="false" placeholder="Pegá tu clave para recuperar un avance" aria-label="Clave privada del borrador" />
+        <input class="draft-code" id="codigoBorrador" type="text" autocomplete="off" spellcheck="false" placeholder="Pegá tu clave para recuperar un avance" aria-label="Clave privada del trabajo" />
         <button class="secundario" type="button" id="btnRecuperar">Recuperar avance</button>
         <button class="secundario" type="button" id="btnCopiarCodigo">Copiar mi clave</button>
       </div>
@@ -681,7 +681,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
   </details>
 </div>
 <div class="acciones send-actions">
-  <button class="primario" id="btnEnviar" type="submit">Enviar trabajo final</button>
+  <button class="primario" id="btnEnviar" type="submit">Entregar versión final</button>
   <button class="secundario" id="btnLimpiar" type="button">Limpiar formulario</button>
 </div>
 </form>
@@ -698,7 +698,7 @@ const configured=/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(WEB
 const FIELDS=['final_sintesis','final_tecnologia','final_plan','final_justificacion','final_valor','final_requerimientos','final_conclusiones','final_bibliografia'];
 const COMMON=['autor','correo','titulo','organizacion','sector','palabrasClave'];
 const OTHER=['enlace1','enlace1_titulo','enlace2','enlace2_titulo','epigrafe1','epigrafe2'];
-const STORAGE_KEY='unq_tfi_2026_draft_token';
+const STORAGE_KEY='unq_tfi_2026_progress_token';
 if(!configured){send.disabled=true;send.style.opacity='.5'}else form.action=WEB_APP_URL;
 // El contenido editable nunca se interpreta como HTML recibido por un tercero: se serializa solo con etiquetas de formato permitidas.
 function cleanRich(raw){
@@ -761,9 +761,9 @@ if(token)document.getElementById('codigoBorrador').value=token;
 function keepToken(value){token=value;document.getElementById('codigoBorrador').value=value;try{localStorage.setItem(STORAGE_KEY,value)}catch(_){}}
 document.getElementById('btnGuardarBorrador').addEventListener('click',()=>{
  if(pending||!configured)return;try{
-  syncEditors();const k=document.getElementById('codigoBorrador').value.trim()||token||randomToken();if(!/^[a-f0-9]{64}$/.test(k))throw Error('El código de borrador no tiene el formato correcto.');
-  keepToken(k);prepareRequest('borrador',k);setPending(true);notify(draftStatus,'Guardando borrador en Google Sheets…');
-  // Omitir las imágenes de borrador para evitar subidas accidentales.
+  syncEditors();const k=document.getElementById('codigoBorrador').value.trim()||token||randomToken();if(!/^[a-f0-9]{64}$/.test(k))throw Error('La clave del trabajo no tiene el formato correcto.');
+  keepToken(k);prepareRequest('avance',k);setPending(true);notify(draftStatus,'Publicando avance en el libro digital…');
+  // Las imágenes se adjuntan solamente a la entrega final.
   HTMLFormElement.prototype.submit.call(form);
  }catch(err){setPending(false);notify(draftStatus,err.message,true)}
 });
@@ -772,12 +772,12 @@ document.getElementById('btnCopiarCodigo').addEventListener('click',async()=>{
  try{await navigator.clipboard.writeText(k);notify(draftStatus,'Código copiado. Conservalo de manera privada.')}catch(_){document.getElementById('codigoBorrador').select();notify(draftStatus,'Código seleccionado: copialo y guardalo.')}});
 function loadDraft(){
  const k=document.getElementById('codigoBorrador').value.trim();if(!/^[a-f0-9]{64}$/.test(k))return notify(draftStatus,'Ingresá un código válido.',true);
- if(pending)return;notify(draftStatus,'Buscando borrador…');const cb='tfiDraftCallback';
- window[cb]=(data)=>{if(data?.error)return notify(draftStatus,'No se encontró ese borrador.',true);if(!data?.borrador)return notify(draftStatus,'No se encontró ese borrador.',true);showDraft(data.borrador);keepToken(k);notify(draftStatus,'Recuperamos tu avance. Podés continuar escribiendo.')};
- const s=document.createElement('script');s.src=WEB_APP_URL+'?tipo=borrador&token='+encodeURIComponent(k)+'&callback='+cb+'&v='+Date.now();s.onerror=()=>notify(draftStatus,'No se pudo recuperar el borrador. Revisá la conexión.',true);document.body.appendChild(s);
+ if(pending)return;notify(draftStatus,'Buscando tu trabajo…');const cb='tfiDraftCallback';
+ window[cb]=(data)=>{if(data?.error)return notify(draftStatus,'No se encontró un avance con esa clave.',true);if(!data?.borrador)return notify(draftStatus,'No se encontró un avance con esa clave.',true);showDraft(data.borrador);keepToken(k);notify(draftStatus,'Recuperamos tu avance. Podés continuar escribiendo.')};
+ const s=document.createElement('script');s.src=WEB_APP_URL+'?tipo=avance&token='+encodeURIComponent(k)+'&callback='+cb+'&v='+Date.now();s.onerror=()=>notify(draftStatus,'No se pudo recuperar el avance. Revisá la conexión.',true);document.body.appendChild(s);
 }
 document.getElementById('btnRecuperar').addEventListener('click',loadDraft);
-// Al volver desde el mismo navegador, recuperar el último borrador sin pedir la clave.
+// Al volver desde el mismo navegador, recuperar el último avance sin pedir la clave.
 if(token && configured){
  notify(draftStatus,'Recuperando tu último avance…');
  loadDraft();
@@ -786,7 +786,7 @@ if(token && configured){
 form.addEventListener('submit',async(ev)=>{
  ev.preventDefault();if(pending||!configured)return;syncEditors();
  const missing=FIELDS.filter(k=>!document.getElementById(k).value);if(missing.length)return notify(status,'Completá los apartados obligatorios antes de enviar.',true);
- if(!confirm('¿Confirmás el envío definitivo? Este trabajo se publicará en el libro digital y ya no será un borrador.'))return;
+ if(!confirm('¿Confirmás el envío definitivo? Se publicará la versión definitiva y dejará de figurar como trabajo en construcción.'))return;
  for(const n of [1,2])for(const suf of ['base64','tipo','nombre'])document.getElementById('imagen'+n+'_'+suf).value='';
  setPending(true);prepareRequest('final',token);status.style.display='block';notify(status,'Preparando el envío definitivo…');
  try{
@@ -800,14 +800,14 @@ window.addEventListener('message',ev=>{
  if(ev.source!==iframe.contentWindow && !/^https:\/\/(?:script\.google\.com|(?:[a-z0-9-]+\.)?googleusercontent\.com)$/.test(ev.origin))return;const data=ev.data;if(!data||data.channel!=='unq-tfi-2026'||data.nonce!==currentNonce)return;
  setPending(false);
  if(data.ok){
-  if(operation==='borrador')notify(draftStatus,'Avance guardado. Cuando vuelvas a esta página desde el mismo navegador, podrás continuar.');
+  if(operation==='avance')notify(draftStatus,'Avance publicado. Consultalo en «Ver libro». Podés volver a editarlo más adelante.');
   else{notify(status,'Entrega definitiva registrada. Podés verificarla en el libro digital.');try{localStorage.removeItem(STORAGE_KEY)}catch(_){}}
- }else{notify(operation==='borrador'?draftStatus:status,'No se registró: '+(data.message||'error desconocido'),true)}
+ }else{notify(operation==='avance'?draftStatus:status,'No se registró: '+(data.message||'error desconocido'),true)}
 });
-iframe.addEventListener('load',()=>{if(!pending)return;setTimeout(()=>{if(pending){setPending(false);notify(operation==='borrador'?draftStatus:status,'No se pudo confirmar la operación automáticamente. Verificá el registro antes de reenviar.',true)}},1500)});
+iframe.addEventListener('load',()=>{if(!pending)return;setTimeout(()=>{if(pending){setPending(false);notify(operation==='avance'?draftStatus:status,'No se pudo confirmar la operación automáticamente. Verificá el registro antes de reenviar.',true)}},8000)});
 document.getElementById('btnLimpiar').addEventListener('click',()=>{
- if(!confirm('¿Querés borrar el contenido de este formulario? Esto no elimina los borradores guardados en el servidor.'))return;
- form.reset();FIELDS.forEach(k=>document.querySelector('[data-for="'+k+'"]').innerHTML='');document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}});updateResourceButtons();status.style.display='none';notify(draftStatus,'Formulario limpiado. Si tenés un avance guardado, podés recuperarlo desde las opciones adicionales.');
+ if(!confirm('¿Querés borrar el contenido de este formulario? Esto no elimina los avances publicados en el libro.'))return;
+ form.reset();FIELDS.forEach(k=>document.querySelector('[data-for="'+k+'"]').innerHTML='');document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}});updateResourceButtons();status.style.display='none';notify(draftStatus,'Se limpió la pantalla, pero el avance publicado se conserva. Podés recuperarlo desde las opciones adicionales.');
 });
 updateResourceButtons();
 </script></body>
