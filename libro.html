@@ -42,6 +42,7 @@ body{background:#eff4f6}
 @media(max-width:580px){.layout{width:100%;margin:0}.visor{border-radius:0}.visor-body{padding:8px}.pagina-inner{padding:32px 20px 55px}.pagina:first-child .pagina-inner{min-height:560px}.texto h2{font-size:24px}.texto h3{font-size:19px}.topbar-inner{padding:13px 8px}}
 @media print{body{background:white}.visor,.pagina{border:0;border-radius:0;box-shadow:none}.pagina{break-after:page}.pagina:first-child{-webkit-print-color-adjust:exact;print-color-adjust:exact}.visor-body{padding:0;background:white}.pagina-inner{padding:24mm 22mm 20mm 24mm}}
 
+.rich-output{line-height:1.7;overflow-wrap:anywhere}.rich-output p{margin:0 0 12px;white-space:pre-wrap;text-align:justify}.rich-output div{margin-bottom:9px}.rich-output ul,.rich-output ol{padding-left:25px}.rich-output strong{font-weight:700}
 </style>
 </head><body><div class="topbar"><div class="topbar-inner"><strong>Libro digital · Noviembre–diciembre 2026</strong><nav><a class="btn" href="index.html">Inicio</a><a class="btn" href="entrega-final.html">Cargar trabajo final</a><button class="btn primario" onclick="window.print()" type="button">Imprimir / guardar en PDF</button></nav></div></div><main class="layout"><section class="visor"><div class="visor-body"><div class="libro" id="libro"><div class="aviso">Cargando entregas...</div></div></div></section></main><script>
 const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwrqEaAXfiSz8yhMUMedfiBfDeIIoXNmS5NZwCtA9f9BuNX98LUrQSki_exFpKK6T2BJA/exec";
@@ -54,7 +55,19 @@ function intro(){return page(`<div class="texto"><h2>Introducción</h2><p>Esta p
 function media(x){let o='';for(let i=1;i<=2;i++){const u=safeUrl(x['imagen'+i]);if(u){o+=`<figure class="media"><a href="${e(u)}" target="_blank" rel="noopener noreferrer" title="Abrir imagen en una pestaña nueva"><img loading="lazy" referrerpolicy="no-referrer" src="${e(u)}" alt="${e(x['epigrafe'+i]||'Imagen complementaria del trabajo')}"></a><figcaption>${e(x['epigrafe'+i]||'Imagen complementaria')}</figcaption></figure>`}}let ls=[];for(let i=1;i<=2;i++){const u=safeUrl(x['enlace'+i]);if(u)ls.push(`<li><a target="_blank" rel="noopener noreferrer" href="${e(u)}">${e(x['enlace'+i+'_titulo']||'Abrir recurso complementario '+i)}</a></li>`)}if(ls.length)o+=`<h3>Recursos complementarios</h3><ul>${ls.join('')}</ul>`;return o}
 function indice(fin){let f=fin.map((x,i)=>`<div class="sumario"><div><a href="#final-${i+1}">${e(x.final_titulo_definitivo||x.titulo||'Sin título')}</a><br>${e(x.autor)}</div><div>${i+4}</div></div>`).join('')||'<p>Aún no se incorporaron trabajos finales.</p>';return page(`<div class="texto"><h2>Contenido</h2><h3>Trabajos Finales Integradores</h3>${f}</div>`,'Contenido',1)}
 function meta(x){return `<p class="meta"><strong>Autoría:</strong> ${e(x.autor)}<br><strong>Organización:</strong> ${e(x.organizacion)}<br><strong>Sector:</strong> ${e(x.sector||'No especificado')}<br><strong>Palabras clave:</strong> ${e(x.palabrasClave||'No especificadas')}</p>`}
-function field(t,v){return `<h3>${e(t)}</h3><p>${e(v||'No consignado')}</p>`}
+function safeRich(v){
+ const template=document.createElement('template');template.innerHTML=String(v||'');
+ const allowed=new Set(['B','STRONG','I','EM','U','P','DIV','BR','UL','OL','LI']);
+ function filter(n){
+  if(n.nodeType===3)return document.createTextNode(n.nodeValue||'');
+  if(n.nodeType!==1)return document.createDocumentFragment();
+  const tag=n.tagName;if(['SCRIPT','STYLE','IFRAME','OBJECT','SVG','MATH','FORM','IMG'].includes(tag))return document.createDocumentFragment();
+  const out=allowed.has(tag)?document.createElement(tag==='B'?'strong':tag==='I'?'em':tag.toLowerCase()):document.createDocumentFragment();
+  for(const child of n.childNodes)out.appendChild(filter(child));return out;
+ }
+ const out=document.createElement('div');for(const n of template.content.childNodes)out.appendChild(filter(n));return out.innerHTML;
+}
+function field(t,v){const value=String(v||'');return `<h3>${e(t)}</h3><div class="rich-output">${value?(/^\s*</.test(value)?safeRich(value):'<p>'+e(value)+'</p>'):'<p>No consignado</p>'}</div>`}
 function finalPage(x,i,n){return page(`<div class="texto" id="final-${i+1}"><p class="badge">Trabajo final</p><h2>${e(x.final_titulo_definitivo||x.titulo)}</h2>${meta(x)}${field('Síntesis del caso y del problema',x.final_sintesis)}${field('Tecnología habilitadora',x.final_tecnologia)}${field('Plan de transformación digital',x.final_plan)}${field('Justificación teórica',x.final_justificacion)}${field('Potencial de valor',x.final_valor)}${field('Requerimientos de inversión y gestión',x.final_requerimientos)}${field('Conclusiones',x.final_conclusiones)}${field('Bibliografía',x.final_bibliografia)}${media(x)}</div>`,'Trabajos finales',n)}
 function renderLibroDesdeDatos(data){const fin=Array.isArray(data)?data:(data.finales||[]);let h=cover()+indice(fin)+intro();h+=fin.length?fin.map((x,i)=>finalPage(x,i,4+i)).join(''):page('<div class="texto"><h2>Trabajos Finales Integradores</h2><p>Aún no se incorporaron producciones.</p></div>','Trabajos finales',4);libro.innerHTML=h;}
 function cargar(){if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(WEB_APP_URL)){libro.innerHTML='<div class="aviso">El libro está preparado. El equipo docente debe configurar la nueva URL de Google Apps Script para mostrar las producciones de esta edición.</div>';return}const script=document.createElement('script');script.src=WEB_APP_URL+'?callback=renderLibroDesdeDatos&tipo=todo&v='+Date.now();script.onerror=()=>{libro.innerHTML='<div class="aviso">No se pudieron recuperar las producciones. Verificá la conexión del libro con Google Sheets.</div>'};document.body.append(script)}cargar();</script></body></html>

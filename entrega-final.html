@@ -382,6 +382,24 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 .resource-slot .campo{margin-bottom:11px}.resource-slot .campo:last-child{margin-bottom:0}
 .remove-resource{background:transparent;border:0;color:#607d8b;font-size:12px;font-weight:700;padding:5px 6px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .remove-resource:hover{color:#a23f3f}.resource-hint{font-size:12px;line-height:1.6;color:#728692;margin:17px 0 0}
+
+/* Editor enriquecido para apartados académicos */
+.rich-field{border:1px solid #cbdde5;border-radius:11px;overflow:hidden;background:#fff}
+.rich-toolbar{display:flex;gap:5px;align-items:center;flex-wrap:wrap;background:#f4f9fb;padding:7px 9px;border-bottom:1px solid #dbe7eb}
+.rich-toolbar button{padding:7px 11px;min-width:37px;border:1px solid transparent;border-radius:7px;background:white;color:#17465c;font-size:15px;font-weight:700;cursor:pointer}
+.rich-toolbar button:hover,.rich-toolbar button:focus-visible{background:#e0f2f8;border-color:#92cad9}
+.rich-editor{min-height:138px;max-height:560px;overflow-y:auto;padding:14px 15px;outline:0;white-space:pre-wrap;line-height:1.7;font-size:15px;color:#173748;overflow-wrap:anywhere}
+.rich-editor.tall{min-height:210px}
+.rich-editor:focus{box-shadow:inset 0 0 0 2px #b4e6f2}
+.rich-editor:empty:before{content:attr(data-placeholder);color:#9aabb4;pointer-events:none}
+.rich-editor p,.rich-editor div{margin:0 0 8px}
+.rich-field textarea.rich-source{position:absolute!important;clip-path:inset(50%);height:1px!important;width:1px!important;overflow:hidden;opacity:0;pointer-events:none}
+.draft-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0;padding:18px 20px;border-radius:13px;background:#edf7fa;border:1px solid #d5e8ee}
+.draft-tools button{border-radius:9px;padding:12px 15px}
+.draft-tools .draft-code{flex:1;min-width:195px;border:1px solid #b5d5de;border-radius:8px;padding:11px;font:13px Arial}
+.draft-tools p{width:100%;margin:0;color:#536f7c;font-size:13px;line-height:1.5}
+#draftStatus{font-size:13px;font-weight:700;color:#216b66}
+@media(max-width:520px){.rich-editor{min-height:170px}.draft-tools{padding:13px}.draft-tools button{flex:1}}
 </style></head>
 <body>
 <section class="hero">
@@ -405,13 +423,13 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="panel-header"><h2>Trabajo final · Entrega 17/12/2026</h2></div>
 <div class="panel-body">
 
-<div class="nota">Esta es la única instancia de entrega del curso. Podrán incorporar imágenes y enlaces complementarios de manera opcional.</div>
+<div class="nota">La entrega final es el 17 de diciembre. Podés guardar borradores antes de enviar el trabajo definitivo. Las imágenes y los enlaces son opcionales.</div>
 <div class="consigna">
           El trabajo final consistirá en la elaboración de un <strong>Plan de Transformación Digital con Tecnologías Habilitadoras</strong>, aplicado a una organización real o hipotética. La propuesta deberá incorporar al menos una tecnología disruptiva —IA, IoT o Industria 4.0— para optimizar un área clave de la organización, como marketing, operaciones o finanzas. Se espera que el trabajo describa la organización y el área seleccionada, identifique una problemática o una oportunidad de mejora, presente una propuesta de intervención fundamentada en los contenidos de la materia y desarrolle su potencial de valor, así como los principales requerimientos de inversión y gestión para su implementación.
         </div>
 
 <form id="formPlan" method="POST" target="envioOculto">
-<input name="instancia" type="hidden" value="final"/>
+<input name="instancia" type="hidden" value="final"/><input type="hidden" id="modoEnvio" name="modo" value="final"/><input type="hidden" id="tokenEnvio" name="token" value=""/><input type="hidden" id="respuestaNonce" name="nonce" value=""/>
 <div class="bloque-suave">
 <h3>Datos generales del trabajo</h3>
 <div class="campo">
@@ -462,7 +480,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo:</strong> explicar que EcoTrama es un emprendimiento de indumentaria sustentable que vende por redes sociales y tiene dificultades para organizar consultas comerciales, responder con rapidez y dar seguimiento a potenciales clientes.</div>
 </div>
 </details>
-<textarea id="final_sintesis" name="final_sintesis" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_sintesis"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final sintesis" data-for="final_sintesis" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_sintesis" name="final_sintesis" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_tecnologia">
@@ -486,7 +504,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo:</strong> se selecciona Inteligencia Artificial mediante un asistente conversacional porque permitiría responder preguntas frecuentes, registrar consultas y mejorar el seguimiento comercial sin perder el vínculo personalizado con los clientes.</div>
 </div>
 </details>
-<textarea id="final_tecnologia" name="final_tecnologia" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_tecnologia"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final tecnologia" data-for="final_tecnologia" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_tecnologia" name="final_tecnologia" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_plan">
@@ -510,7 +528,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo de organización:</strong> relevamiento de consultas frecuentes; organización de información comercial; implementación de un asistente conversacional; integración con una base de datos de clientes; evaluación y mejora continua.</div>
 </div>
 </details>
-<textarea class="alto" id="final_plan" name="final_plan" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_plan"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor tall" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final plan" data-for="final_plan" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source alto" id="final_plan" name="final_plan" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_justificacion">
@@ -525,7 +543,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo:</strong> la incorporación de un asistente conversacional no se comprende solo como una automatización de respuestas, sino como parte de una estrategia orientada a reorganizar procesos comerciales, sistematizar datos y fortalecer la toma de decisiones.</div>
 </div>
 </details>
-<textarea id="final_justificacion" name="final_justificacion" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_justificacion"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final justificacion" data-for="final_justificacion" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_justificacion" name="final_justificacion" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_valor">
@@ -540,7 +558,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo:</strong> si el problema era la pérdida de consultas comerciales, el valor esperado podría ser mejorar la respuesta, registrar clientes potenciales y aumentar la conversión de consultas en ventas.</div>
 </div>
 </details>
-<textarea id="final_valor" name="final_valor" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_valor"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final valor" data-for="final_valor" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_valor" name="final_valor" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_requerimientos">
@@ -565,7 +583,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo:</strong> seleccionar una herramienta de chatbot, cargar información sobre productos, definir criterios de derivación a atención humana, capacitar a las personas responsables y revisar periódicamente las respuestas generadas.</div>
 </div>
 </details>
-<textarea id="final_requerimientos" name="final_requerimientos" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_requerimientos"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final requerimientos" data-for="final_requerimientos" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_requerimientos" name="final_requerimientos" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_conclusiones">
@@ -587,7 +605,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="ejemplo"><strong>Ejemplo:</strong> la propuesta permite pasar de una gestión comercial dispersa y manual a un esquema más organizado, disponible y basado en información.</div>
 </div>
 </details>
-<textarea id="final_conclusiones" name="final_conclusiones" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_conclusiones"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final conclusiones" data-for="final_conclusiones" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_conclusiones" name="final_conclusiones" required=""></textarea></div>
 </div>
 <div class="campo">
 <label for="final_bibliografia">
@@ -601,7 +619,7 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <p>Conviene que esté presentada con un criterio uniforme, preferentemente en formato APA, y que solo incluya fuentes efectivamente utilizadas en el trabajo.</p>
 </div>
 </details>
-<textarea id="final_bibliografia" name="final_bibliografia" required=""></textarea>
+<div class="rich-field" data-editor-wrap="final_bibliografia"><div class="rich-toolbar" role="toolbar" aria-label="Formato de texto"><button type="button" data-command="bold" aria-label="Negrita" title="Negrita (Ctrl+B)"><strong>B</strong></button><button type="button" data-command="italic" aria-label="Cursiva" title="Cursiva (Ctrl+I)"><em>I</em></button><button type="button" data-command="underline" aria-label="Subrayado" title="Subrayado (Ctrl+U)"><u>U</u></button></div><div class="rich-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="final bibliografia" data-for="final_bibliografia" data-placeholder="Escribí aquí el desarrollo…"></div><textarea class="rich-source" id="final_bibliografia" name="final_bibliografia" required=""></textarea></div>
 </div>
 </div>
 <div class="bloque-suave"><h3>Recursos complementarios <span class="optional-label">(opcionales)</span></h3>
@@ -615,7 +633,15 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 1</strong><button aria-label="Quitar enlace 1" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace1">Dirección web (URL)</label><input disabled="" id="enlace1" name="enlace1" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace1_titulo">Texto del enlace</label><input disabled="" id="enlace1_titulo" maxlength="160" name="enlace1_titulo" placeholder="Sitio, documento o recurso" type="text"/></div></div>
 <div class="resource-slot" data-kind="link" hidden=""><div class="resource-slot-header"><strong>Enlace 2</strong><button aria-label="Quitar enlace 2" class="remove-resource" type="button">Quitar</button></div><div class="campo"><label for="enlace2">Dirección web (URL)</label><input disabled="" id="enlace2" name="enlace2" placeholder="https://..." type="url"/></div><div class="campo"><label for="enlace2_titulo">Texto del enlace</label><input disabled="" id="enlace2_titulo" maxlength="160" name="enlace2_titulo" type="text"/></div></div>
 </div>
-<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="acciones">
+<p class="resource-hint">Pueden seleccionar hasta 2 imágenes de su dispositivo (JPG, PNG o WebP, máximo 1 MB cada una) y agregar hasta 2 enlaces. Las imágenes serán visibles públicamente en el libro. Utilicen únicamente material propio o con autorización y consignen la fuente en el epígrafe cuando corresponda.</p></div><div class="draft-tools" aria-label="Guardar y recuperar borradores">
+<button class="secundario" type="button" id="btnGuardarBorrador">Guardar borrador</button>
+<input class="draft-code" id="codigoBorrador" type="text" autocomplete="off" placeholder="Código privado para recuperar el borrador" aria-label="Código privado del borrador" />
+<button class="secundario" type="button" id="btnRecuperar">Recuperar borrador</button>
+<button class="secundario" type="button" id="btnCopiarCodigo">Copiar código</button>
+<p>Podés escribir por etapas y guardar en Google Sheets. Conservá el código privado: permite recuperar y editar tu borrador desde otro dispositivo. <strong>Guardar borrador no publica el trabajo.</strong> Las imágenes deben volver a seleccionarse al enviar la entrega final.</p>
+<span id="draftStatus" role="status" aria-live="polite"></span>
+</div>
+<div class="acciones">
 <button class="primario" id="btnEnviar" type="submit">Enviar trabajo final</button>
 <button class="secundario" id="btnLimpiar" type="button">Limpiar</button>
 </div>
@@ -627,89 +653,116 @@ h1{font-size:clamp(30px,4.1vw,48px);line-height:1.12;letter-spacing:-.035em;colo
 </main>
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwrqEaAXfiSz8yhMUMedfiBfDeIIoXNmS5NZwCtA9f9BuNX98LUrQSki_exFpKK6T2BJA/exec";
-const form = document.getElementById('formPlan');
-const status = document.getElementById('estado');
-const send = document.getElementById('btnEnviar');
-const configured = /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(WEB_APP_URL);
-if (!configured) {send.disabled=true;send.style.opacity='.5';}
-else {form.action=WEB_APP_URL;}
-document.getElementById('btnLimpiar').addEventListener('click',()=>{form.reset();status.style.display='none';});
-let pending=false;
-const MAX_IMAGE_BYTES=1024*1024;
-const FILE_TYPES=['image/jpeg','image/png','image/webp'];
-for(const n of [1,2]){
- const fileInput=document.getElementById('archivoImagen'+n);
- const preview=document.getElementById('vistaImagen'+n);
- fileInput.addEventListener('change',()=>{
-  preview.hidden=true;preview.removeAttribute('src');
-  const file=fileInput.files?.[0];
-  if(!file)return;
-  if(!FILE_TYPES.includes(file.type)||file.size>MAX_IMAGE_BYTES){
-   alert('Seleccioná una imagen JPG, PNG o WebP de hasta 1 MB.');fileInput.value='';return;
-  }
-  const reader=new FileReader();
-  reader.onload=()=>{preview.src=String(reader.result);preview.hidden=false};
-  reader.readAsDataURL(file);
- });
-}
-function readImage(file){return new Promise((resolve,reject)=>{
- const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('No se pudo leer '+file.name));reader.readAsDataURL(file);
-})}
-form.addEventListener('submit',async(ev)=>{
- ev.preventDefault();
- if(!configured||pending)return;
- for(const n of [1,2])for(const suffix of ['base64','tipo','nombre'])document.getElementById('imagen'+n+'_'+suffix).value='';
- pending=true;send.disabled=true;status.style.display='block';status.textContent='Preparando la entrega y las imágenes…';
- try{
-  for(const n of [1,2]){
-   const input=document.getElementById('archivoImagen'+n);
-   if(input.disabled||input.closest('.resource-slot').hidden||!input.files?.length)continue;
-   const file=input.files[0];
-   if(!FILE_TYPES.includes(file.type)||file.size>MAX_IMAGE_BYTES)throw new Error('La imagen '+n+' debe ser JPG, PNG o WebP y pesar como máximo 1 MB.');
-   const data=await readImage(file);
-   const raw=data.split(',')[1];
-   if(!raw)throw new Error('No se pudo preparar la imagen '+n);
-   document.getElementById('imagen'+n+'_base64').value=raw;
-   document.getElementById('imagen'+n+'_tipo').value=file.type;
-   document.getElementById('imagen'+n+'_nombre').value=file.name;
-  }
-  status.textContent='Enviando el trabajo y los recursos. No cierres esta página hasta que termine.';
-  HTMLFormElement.prototype.submit.call(form);
- }catch(error){pending=false;send.disabled=false;status.textContent=error.message;}
-});
-document.getElementById('envioOculto').addEventListener('load',()=>{
- if (!pending)return;
- pending=false;send.disabled=false;
- status.innerHTML='La solicitud terminó de enviarse. <strong>Comprobá que el trabajo y las imágenes aparezcan en <a href="libro.html" target="_blank" rel="noopener noreferrer">el libro digital</a>.</strong> Si no aparecen, avisá al equipo docente antes de reenviar.';
-});
-// Mostrar los recursos únicamente si se elige agregarlos.
-function updateResourceButtons(){
- for(const [id,kind] of [['addImage','image'],['addLink','link']]){
-  const slots=[...document.querySelectorAll('.resource-slot[data-kind="'+kind+'"]')];
-  const count=slots.filter(slot=>!slot.hidden).length;
-  const button=document.getElementById(id);
-  button.disabled=count===slots.length;
-  button.textContent=count===slots.length?'Máximo de '+(kind==='image'?'imágenes':'enlaces')+' agregado':'＋ Agregar '+(kind==='image'?'imagen':'enlace');
+const form=document.getElementById('formPlan'), status=document.getElementById('estado'), send=document.getElementById('btnEnviar');
+const draftStatus=document.getElementById('draftStatus');
+const configured=/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(WEB_APP_URL);
+const FIELDS=['final_sintesis','final_tecnologia','final_plan','final_justificacion','final_valor','final_requerimientos','final_conclusiones','final_bibliografia'];
+const COMMON=['autor','correo','titulo','organizacion','sector','palabrasClave'];
+const OTHER=['enlace1','enlace1_titulo','enlace2','enlace2_titulo','epigrafe1','epigrafe2'];
+const STORAGE_KEY='unq_tfi_2026_draft_token';
+if(!configured){send.disabled=true;send.style.opacity='.5'}else form.action=WEB_APP_URL;
+// El contenido editable nunca se interpreta como HTML recibido por un tercero: se serializa solo con etiquetas de formato permitidas.
+function cleanRich(raw){
+ const template=document.createElement('template');template.innerHTML=String(raw||'');
+ const allow=new Set(['B','STRONG','I','EM','U','P','DIV','BR','UL','OL','LI']);
+ function copy(node){
+  if(node.nodeType===3)return document.createTextNode(node.nodeValue||'');
+  if(node.nodeType!==1)return document.createDocumentFragment();
+  const tag=node.tagName;
+  if(['SCRIPT','STYLE','IFRAME','OBJECT','SVG','MATH','FORM','IMG','VIDEO','AUDIO'].includes(tag))return document.createDocumentFragment();
+  const out=allow.has(tag)?document.createElement(tag==='B'?'strong':tag==='I'?'em':tag.toLowerCase()):document.createDocumentFragment();
+  for(const child of node.childNodes)out.appendChild(copy(child));return out;
  }
+ const out=document.createElement('div');for(const n of template.content.childNodes)out.appendChild(copy(n));return out.innerHTML;
 }
-for(const [id,kind] of [['addImage','image'],['addLink','link']]){
- document.getElementById(id).addEventListener('click',()=>{
-  const slot=[...document.querySelectorAll('.resource-slot[data-kind="'+kind+'"]')].find(s=>s.hidden);
-  if(!slot)return;
-  slot.hidden=false;slot.querySelectorAll('input').forEach(i=>i.disabled=false);
-  updateResourceButtons();
-  slot.querySelector('input')?.focus();
+function syncEditors(){for(const id of FIELDS){const editor=document.querySelector('[data-for="'+id+'"]');const v=cleanRich(editor.innerHTML).trim();document.getElementById(id).value=editor.innerText.trim()?v:''}}
+for(const id of FIELDS){
+ const editor=document.querySelector('[data-for="'+id+'"]');const wrap=editor.closest('.rich-field');
+ wrap.querySelectorAll('[data-command]').forEach(btn=>{
+  btn.addEventListener('mousedown',ev=>ev.preventDefault());
+  btn.addEventListener('click',()=>{editor.focus();document.execCommand(btn.dataset.command,false,null);syncEditors()});
  });
+ editor.addEventListener('input',syncEditors);
+ editor.addEventListener('paste',ev=>{ev.preventDefault();const plain=ev.clipboardData.getData('text/plain');document.execCommand('insertText',false,plain)});
 }
-document.querySelectorAll('.remove-resource').forEach(btn=>btn.addEventListener('click',()=>{
- const slot=btn.closest('.resource-slot');
- slot.querySelectorAll('input').forEach(i=>{i.value='';i.disabled=true});const preview=slot.querySelector('.image-preview');if(preview){preview.hidden=true;preview.removeAttribute('src')}
- slot.hidden=true;
- updateResourceButtons();
-}));
+function notify(el,message,error=false){el.textContent=message;el.style.color=error?'#a23e40':'#216b66'}
+const MAX_IMAGE_BYTES=1024*1024, FILE_TYPES=['image/jpeg','image/png','image/webp'];
+for(const n of [1,2])document.getElementById('archivoImagen'+n).addEventListener('change',ev=>{
+ const input=ev.target, preview=document.getElementById('vistaImagen'+n);
+ preview.hidden=true;preview.removeAttribute('src');const file=input.files?.[0];if(!file)return;
+ if(!FILE_TYPES.includes(file.type)||file.size>MAX_IMAGE_BYTES){alert('Seleccioná una imagen JPG, PNG o WebP de hasta 1 MB.');input.value='';return}
+ const reader=new FileReader();reader.onload=()=>{preview.src=String(reader.result);preview.hidden=false};reader.readAsDataURL(file);
+});
+function readImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('No se pudo leer '+file.name));reader.readAsDataURL(file)})}
+function updateResourceButtons(){for(const [id,kind] of [['addImage','image'],['addLink','link']]){const slots=[...document.querySelectorAll('.resource-slot[data-kind="'+kind+'"]')],count=slots.filter(s=>!s.hidden).length,b=document.getElementById(id);b.disabled=count===slots.length;b.textContent=count===slots.length?'Máximo de '+(kind==='image'?'imágenes':'enlaces')+' agregado':'＋ Agregar '+(kind==='image'?'imagen':'enlace')}}
+for(const [id,kind] of [['addImage','image'],['addLink','link']])document.getElementById(id).addEventListener('click',()=>{const slot=[...document.querySelectorAll('.resource-slot[data-kind="'+kind+'"]')].find(s=>s.hidden);if(!slot)return;slot.hidden=false;slot.querySelectorAll('input').forEach(i=>i.disabled=false);updateResourceButtons();slot.querySelector('input')?.focus()});
+document.querySelectorAll('.remove-resource').forEach(btn=>btn.addEventListener('click',()=>{const slot=btn.closest('.resource-slot');slot.querySelectorAll('input').forEach(i=>{i.value='';i.disabled=true});const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}slot.hidden=true;updateResourceButtons()}));
+let pending=false,currentNonce='',operation='';
+const iframe=document.getElementById('envioOculto');
+function setPending(flag){pending=flag;send.disabled=flag;document.getElementById('btnGuardarBorrador').disabled=flag}
+function prepareRequest(mode,token){
+ document.getElementById('modoEnvio').value=mode;document.getElementById('tokenEnvio').value=token||'';
+ currentNonce=String(Date.now())+'-'+Math.random().toString(36).slice(2);document.getElementById('respuestaNonce').value=currentNonce;
+ operation=mode;form.action=WEB_APP_URL;
+}
+function collectDraft(){syncEditors();const obj={};for(const k of [...COMMON,...FIELDS,...OTHER]){const el=document.getElementById(k);obj[k]=el?.disabled?'':(el?.value||'')}return obj}
+function showDraft(d){
+ for(const k of [...COMMON,...FIELDS,...OTHER]){
+  const input=document.getElementById(k);if(!input)continue;
+  const value=String(d[k]||'');
+  if(input.closest('.resource-slot')){const slot=input.closest('.resource-slot');if(value){slot.hidden=false;slot.querySelectorAll('input').forEach(el=>el.disabled=false)}}
+  input.value=value;
+ }
+ for(const k of FIELDS){const edit=document.querySelector('[data-for="'+k+'"]');edit.innerHTML=cleanRich(d[k]||'')}
+ updateResourceButtons();syncEditors();
+}
+function randomToken(){if(window.crypto?.randomUUID)return crypto.randomUUID().replace(/-/g,'')+crypto.randomUUID().replace(/-/g,'');throw Error('Este navegador no permite generar un código seguro. Usá una conexión HTTPS.')}
+let token='';try{token=localStorage.getItem(STORAGE_KEY)||''}catch(_){/* private browsing */}
+if(token)document.getElementById('codigoBorrador').value=token;
+function keepToken(value){token=value;document.getElementById('codigoBorrador').value=value;try{localStorage.setItem(STORAGE_KEY,value)}catch(_){}}
+document.getElementById('btnGuardarBorrador').addEventListener('click',()=>{
+ if(pending||!configured)return;try{
+  syncEditors();const k=document.getElementById('codigoBorrador').value.trim()||token||randomToken();if(!/^[a-f0-9]{64}$/.test(k))throw Error('El código de borrador no tiene el formato correcto.');
+  keepToken(k);prepareRequest('borrador',k);setPending(true);notify(draftStatus,'Guardando borrador en Google Sheets…');
+  // Omitir las imágenes de borrador para evitar subidas accidentales.
+  HTMLFormElement.prototype.submit.call(form);
+ }catch(err){setPending(false);notify(draftStatus,err.message,true)}
+});
+document.getElementById('btnCopiarCodigo').addEventListener('click',async()=>{
+ const k=document.getElementById('codigoBorrador').value.trim();if(!k)return notify(draftStatus,'Primero guardá un borrador.',true);
+ try{await navigator.clipboard.writeText(k);notify(draftStatus,'Código copiado. Conservalo de manera privada.')}catch(_){document.getElementById('codigoBorrador').select();notify(draftStatus,'Código seleccionado: copialo y guardalo.')}});
+function loadDraft(){
+ const k=document.getElementById('codigoBorrador').value.trim();if(!/^[a-f0-9]{64}$/.test(k))return notify(draftStatus,'Ingresá un código válido.',true);
+ if(pending)return;notify(draftStatus,'Buscando borrador…');const cb='tfiDraftCallback';
+ window[cb]=(data)=>{if(data?.error)return notify(draftStatus,'No se encontró ese borrador.',true);if(!data?.borrador)return notify(draftStatus,'No se encontró ese borrador.',true);showDraft(data.borrador);keepToken(k);notify(draftStatus,'Borrador recuperado. Podés continuar editándolo.')};
+ const s=document.createElement('script');s.src=WEB_APP_URL+'?tipo=borrador&token='+encodeURIComponent(k)+'&callback='+cb+'&v='+Date.now();s.onerror=()=>notify(draftStatus,'No se pudo recuperar el borrador. Revisá la conexión.',true);document.body.appendChild(s);
+}
+document.getElementById('btnRecuperar').addEventListener('click',loadDraft);
+form.addEventListener('submit',async(ev)=>{
+ ev.preventDefault();if(pending||!configured)return;syncEditors();
+ const missing=FIELDS.filter(k=>!document.getElementById(k).value);if(missing.length)return notify(status,'Completá los apartados obligatorios antes de enviar.',true);
+ if(!confirm('¿Confirmás el envío definitivo? Este trabajo se publicará en el libro digital y ya no será un borrador.'))return;
+ for(const n of [1,2])for(const suf of ['base64','tipo','nombre'])document.getElementById('imagen'+n+'_'+suf).value='';
+ setPending(true);prepareRequest('final',token);status.style.display='block';notify(status,'Preparando el envío definitivo…');
+ try{
+  for(const n of [1,2]){const input=document.getElementById('archivoImagen'+n);if(input.disabled||input.closest('.resource-slot').hidden||!input.files?.length)continue;
+   const file=input.files[0];if(!FILE_TYPES.includes(file.type)||file.size>MAX_IMAGE_BYTES)throw Error('La imagen '+n+' supera 1 MB o tiene un tipo inválido.');const data=await readImage(file);document.getElementById('imagen'+n+'_base64').value=data.split(',')[1];document.getElementById('imagen'+n+'_tipo').value=file.type;document.getElementById('imagen'+n+'_nombre').value=file.name}
+  notify(status,'Enviando entrega final…');HTMLFormElement.prototype.submit.call(form);
+ }catch(err){setPending(false);notify(status,err.message,true)}
+});
+// El servidor responde al iframe con un mensaje identificable por nonce.
+window.addEventListener('message',ev=>{
+ if(ev.source!==iframe.contentWindow && !/^https:\/\/(?:script\.google\.com|(?:[a-z0-9-]+\.)?googleusercontent\.com)$/.test(ev.origin))return;const data=ev.data;if(!data||data.channel!=='unq-tfi-2026'||data.nonce!==currentNonce)return;
+ setPending(false);
+ if(data.ok){
+  if(operation==='borrador')notify(draftStatus,'Borrador guardado. Conservá tu código privado para editarlo más adelante.');
+  else{notify(status,'Entrega definitiva registrada. Podés verificarla en el libro digital.');try{localStorage.removeItem(STORAGE_KEY)}catch(_){}}
+ }else{notify(operation==='borrador'?draftStatus:status,'No se registró: '+(data.message||'error desconocido'),true)}
+});
+iframe.addEventListener('load',()=>{if(!pending)return;setTimeout(()=>{if(pending){setPending(false);notify(operation==='borrador'?draftStatus:status,'No se pudo confirmar la operación automáticamente. Verificá el registro antes de reenviar.',true)}},1500)});
 document.getElementById('btnLimpiar').addEventListener('click',()=>{
- document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const preview=slot.querySelector('.image-preview');if(preview){preview.hidden=true;preview.removeAttribute('src')}});
- updateResourceButtons();
+ if(!confirm('¿Querés borrar el contenido de este formulario? Esto no elimina los borradores guardados en el servidor.'))return;
+ form.reset();FIELDS.forEach(k=>document.querySelector('[data-for="'+k+'"]').innerHTML='');document.querySelectorAll('.resource-slot').forEach(slot=>{slot.hidden=true;slot.querySelectorAll('input').forEach(i=>i.disabled=true);const img=slot.querySelector('.image-preview');if(img){img.hidden=true;img.removeAttribute('src')}});updateResourceButtons();status.style.display='none';notify(draftStatus,'Formulario limpiado. Los borradores guardados siguen disponibles mediante su código.');
 });
 updateResourceButtons();
 </script></body>
