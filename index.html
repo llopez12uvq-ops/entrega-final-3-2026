@@ -51,8 +51,22 @@ h1{font-size:clamp(32px,3.8vw,50px);line-height:1.12;letter-spacing:-.04em;color
 @media(max-width:520px){.pagina{padding:0}.contenedor{border-radius:0;border:0}.hero-inner{padding:34px 23px 42px}.hero{min-height:390px}.panel{padding:26px 20px}}
 
 </style>
-<style id="home-simplificada">.panel{gap:16px}.tarjetas{gap:8px}.tarjeta{padding:15px 17px}.acciones{gap:10px}.mini-info{padding-top:12px}.mini-info li{font-size:13px}.hero{min-height:580px}@media(max-width:980px){.hero{min-height:330px}}@media(max-width:520px){.hero{min-height:330px}.panel{padding:22px 19px;gap:15px}.panel h2{font-size:23px}.acciones .boton{min-height:50px}.pagina{padding:0}}</style></head>
-<body>
+<style id="home-simplificada">.panel{gap:16px}.tarjetas{gap:8px}.tarjeta{padding:15px 17px}.acciones{gap:10px}.mini-info{padding-top:12px}.mini-info li{font-size:13px}.hero{min-height:580px}@media(max-width:980px){.hero{min-height:330px}}@media(max-width:520px){.hero{min-height:330px}.panel{padding:22px 19px;gap:15px}.panel h2{font-size:23px}.acciones .boton{min-height:50px}.pagina{padding:0}}</style><style id="nav-unificada-tfi">
+/* Identidad compartida del libro y del espacio de escritura */
+.tfi-site-header{background:#fff;border-bottom:1px solid #dbe7eb;position:relative;z-index:5}
+.tfi-site-header__inner{width:min(1100px,calc(100% - 40px));margin:auto;min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.tfi-site-brand{font:800 15px/1.35 Arial,sans-serif;letter-spacing:-.01em;color:#10384d;text-decoration:none;white-space:nowrap}
+.tfi-site-brand span{font-weight:500;color:#67828f}
+.tfi-site-nav{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.tfi-site-nav a{font:750 13px/1.3 Arial,sans-serif;display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:42px;padding:10px 15px;border-radius:10px;text-decoration:none;color:#315d70;background:transparent;border:1px solid transparent;transition:background .15s,border-color .15s}
+.tfi-site-nav a:hover{background:#ecf7f9;border-color:#d5e9ef}
+.tfi-site-nav a[aria-current="page"]{color:#087393;background:#e7f5f7;border-color:#cbe5ea}
+.tfi-site-nav a:focus-visible{outline:3px solid #159b74;outline-offset:2px}
+@media(max-width:720px){.tfi-site-header__inner{width:calc(100% - 28px);display:grid;gap:11px;padding:13px 0}.tfi-site-brand{font-size:14px}.tfi-site-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.tfi-site-nav a{font-size:12px;padding:9px 5px;min-height:46px;white-space:normal}}
+@media(max-width:370px){.tfi-site-nav a{font-size:11px}.tfi-site-brand{font-size:13px}}
+@media print{.tfi-site-header,.tfi-pdf-actions{display:none!important}}
+</style></head>
+<body><header class="tfi-site-header"><div class="tfi-site-header__inner"><a class="tfi-site-brand" href="index.html">Libro digital <span>· TFI 2026</span></a><nav class="tfi-site-nav" aria-label="Secciones del libro"><a href="index.html" aria-current="page">Inicio</a><a href="entrega-final.html">Escribir / continuar</a><a href="libro.html">Leer libro</a></nav></div></header>
 <main class="pagina"><section class="contenedor">
 <article class="hero"><div class="hero-inner"><div class="eyebrow">Noviembre–diciembre de 2026 · UNQ</div><h1>Libro digital · Plataformas, economía y transformación digital</h1><p>Un espacio de producción académica colaborativa para elaborar y compartir planes de transformación digital vinculados con los contenidos de la materia.</p><div class="destacado"><p>La propuesta consiste en elaborar un único Trabajo Final Integrador: un Plan de Transformación Digital con Tecnologías Habilitadoras. Fecha de entrega: 17 de diciembre de 2026.</p></div></div></article>
 <aside class="panel"><div><h2>Tu espacio de trabajo</h2><p>Escribí tu capítulo, retomá los avances de tu equipo y explorá los trabajos del curso.</p></div>
